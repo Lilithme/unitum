@@ -7,6 +7,7 @@ function selectKW(kw) {
 		child.classList.remove("active");
 	});
 	updateDatum();
+	loadPlan(selectedDate());
 }
 function selectTag(tag) {
 	if (selectedWeek()[tag] === undefined) return;
@@ -15,6 +16,7 @@ function selectTag(tag) {
 		child.classList.remove("active");
 	});
 	updateDatum();
+	loadPlan(selectedDate());
 }
 
 function selectedWeek() {

@@ -1,19 +1,3 @@
-let contentElements = document.querySelectorAll('.content');
-
-let htmlContent = `
-<select name="Name" id="Name">
-    <option value="">Name wählen</option>
-    <option value="Tamy">Tamy</option>
-    <option value="Jason">Jason</option>
-</select>
-<br>
-<label>Uhrzeit</label>
-<input type="time">
-<input type="time">
-`;
-contentElements.forEach(element => {
-    element.innerHTML += htmlContent;
-});
 
 //Sidebar aufklappen/einklappen
 const toggle = document.querySelector(".toggle"),
@@ -40,7 +24,7 @@ kwDaten.forEach((kw) => {
 
 // Generiert die Tag Einträge
 let Tag_Liste = document.querySelector(".Tag_Liste");
-const wochentage = ["MO", "DI", "MI", "DI", "FR"];
+const wochentage = ["MO", "DI", "MI", "DO", "FR"];
 wochentage.forEach((Tag, i) => {
     let Tagtext = document.createElement("h3");
     Tagtext.innerText = Tag;
@@ -55,3 +39,101 @@ wochentage.forEach((Tag, i) => {
 // 14:10 Einspielung der neuen KW,
 //zweite Zeile erscheint erst wenn in erster Zeile etwas drin steht - darf nicht verschwinden, wenn in der ersten etwas verschwindet
 // TLs sollen Parkplätze blockieren und alle Löschen können
+
+//----------- Objekte mit Team Bezeichnungen und MA ------------------------------------------------
+
+let selectedTeam = "1"
+
+const Team1 = {
+    Teambezeichnung: "Team1",
+    Mitarbeiter: ['Harry', 'Draco', 'Hermine', 'Ron', 'Dobby', 'Minerva', 'Hedwig', 'Albus']
+};
+
+const Team2 = {
+    Teambezeichnung: "Team2",
+    Mitarbeiter: ['Data', 'Worf', 'Jean-Luc', 'Saru', 'Seven']
+};
+
+const Team3 = {
+    Teambezeichnung: "Team3",
+    Mitarbeiter: ['Anakin', 'Luke', 'Leia', 'Boba', 'Chewbacca', 'Kylo']
+};
+
+const Team4 = {
+    Teambezeichnung: "Team4",
+    Mitarbeiter: ['Tealc', 'Janet', 'Jack', 'Daniel', 'Samantha']
+};
+
+const Team5 = {
+    Teambezeichnung: "Team5",
+    Mitarbeiter: ['Aragon', 'Gandalf', 'Sauron', 'Legolas', 'Galadriel', 'Frodo', 'Gimli']
+};
+
+const Team0 = {
+    Teambezeichnung: "Teamleiter",
+    Mitarbeiter: ['Aragon', 'Tealc', 'Anakin', 'Data', 'Harry']
+};
+
+const AllTeams = [Team1, Team2, Team3, Team4, Team5]
+
+function Namensbefüllung(Team) {
+    let CardContainerList = document.querySelectorAll('.CardContainer')
+    let allNames = [...Team1.Mitarbeiter, ...Team2.Mitarbeiter, ...Team3.Mitarbeiter, ...Team4.Mitarbeiter, ...Team5.Mitarbeiter]
+    for (let j = 0 ; j < CardContainerList.length; j++){
+        const CardContainer = CardContainerList[j];
+        const planPlatz = getPlatz(CardContainer.id);
+        const PSelect = CardContainer.querySelectorAll("select")[0];
+        const PVon = CardContainer.querySelectorAll("input[type='time']")[0];
+        const PBis = CardContainer.querySelectorAll("input[type='time']")[1];
+        if (planPlatz && planPlatz.PTeam && planPlatz.PTeam != selectedTeam) {
+            PSelect.disabled = true;
+            PVon.disabled = true;
+            PBis.disabled = true;
+        } else {
+            PSelect.disabled = false;
+            PVon.disabled = false;
+            PBis.disabled = false;
+        }
+        PSelect.innerHTML = "<option value=''>Name wählen</option>";
+        for (let i = 0; i < allNames.length; i++) {
+            const Name = allNames[i];
+            let Option = document.createElement("option")
+            Option.innerText = Name
+            Option.value = Name
+            // Blende den Namen aus, wenn er nicht teil des aktuellen Teams ist
+            if (!AllTeams[selectedTeam - 1].Mitarbeiter.includes(Name)) {
+                Option.style.display = "none";
+            }
+            PSelect.appendChild(Option);
+        }
+    }
+    allePlätzeEinsetzen();
+}
+
+
+let Navigation = document.querySelectorAll('.nav-link')
+for (let i = 0; i < Navigation.length; i++) {
+    const NavLink = Navigation[i];
+    const Team = AllTeams[i];
+    const Teammitglieder = document.createElement("ul")
+    NavLink.insertAdjacentElement('afterend', Teammitglieder);
+    Teammitglieder.classList.add("name-liste")
+    for (let i = 0; i < Team.Mitarbeiter.length; i++) {
+        const Name = Team.Mitarbeiter[i];
+        let Teammitglied = document.createElement("li")
+        Teammitglied.innerText = Name
+        Teammitglied.value = Name
+        Teammitglieder.appendChild(Teammitglied);
+    }
+    NavLink.onclick = function(){
+        let NamenListen = document.querySelectorAll(".name-liste")
+        Array.from(NamenListen).forEach((Liste) => {
+            Liste.classList.remove("sichtbar");
+        });
+        Teammitglieder.classList.toggle("sichtbar")
+        selectedTeam = i + 1
+
+        Namensbefüllung(AllTeams[selectedTeam - 1]);
+    }
+}
+loadPlan(selectedDate())
