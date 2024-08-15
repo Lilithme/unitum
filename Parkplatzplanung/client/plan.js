@@ -18,14 +18,14 @@ function loadPlan(date) {
         })
 }
 
-function savePlatz(platzNummer, pTeam, pName, pVon, pBis) {
+function savePlatz(platzNummer, pTeam, pName, pVon, pBis, sTeam, sName, sVon, sBis) {
     // Verhindere, dass Einträge an vergangenen Tagen durchgeführt werden können.
     if (new Date(selectedDate().toDateString()) < new Date(new Date().toDateString())) {
         Parkplätze_generieren();
         allePlätzeEinsetzen();
         return;
     }
-    const query = new URLSearchParams({ platz: platzNummer, pTeam, pName, pVon, pBis });
+    const query = new URLSearchParams({ platz: platzNummer, pTeam, pName, pVon, pBis, sTeam, sName, sVon, sBis });
     fetch(`/api/plan/${formatDatum(selectedDate())}?${query}`, {
         method: "POST",
     });
@@ -34,17 +34,37 @@ function savePlatz(platzNummer, pTeam, pName, pVon, pBis) {
 function platzEinsetzen(platzNummer, platz) {
     const platzElement = document.getElementById(platzNummer);
     if (!platzElement) return;
-    const card = platzElement.querySelector(".card");
-    card.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
+    const pCard = platzElement.querySelectorAll(".card")[0];
+    pCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
         5px 5px 8px rgba(0, 0, 0, 0.1),
         -5px -5px 15px rgba(255, 255, 255, 0.8)`;
-    card.style.background = `var(--team${platz.PTeam}-color)`;
-    const name = platzElement.querySelector("select");
-    name.value = platz.PName;
-    const vonTime = platzElement.querySelectorAll("input[type='time']")[0];
-    vonTime.value = platz.PVon;
-    const bisTime = platzElement.querySelectorAll("input[type='time']")[1];
-    bisTime.value = platz.PBis;
+    pCard.style.background = `var(--team${platz.PTeam}-color)`;
+
+    const pName = platzElement.querySelectorAll("select")[0];
+    pName.value = platz.PName;
+    const pVonTime = platzElement.querySelectorAll("input[type='time']")[0];
+    pVonTime.value = platz.PVon;
+    const pBisTime = platzElement.querySelectorAll("input[type='time']")[1];
+    pBisTime.value = platz.PBis;
+
+    const sCard = platzElement.querySelector(".sec");
+    if ((platz && !!platz.PTeam && platz.PTeam != "")) {
+        sCard.classList.add("ausgeklappt");
+    } else {
+        sCard.classList.remove("ausgeklappt");
+    }
+
+    sCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
+        5px 5px 8px rgba(0, 0, 0, 0.1),
+        -5px -5px 15px rgba(255, 255, 255, 0.8)`;
+    sCard.style.background = `var(--team${platz.STeam}-color)`;
+
+    const sName = platzElement.querySelectorAll("select")[1];
+    sName.value = platz.SName;
+    const sVonTime = platzElement.querySelectorAll("input[type='time']")[2];
+    sVonTime.value = platz.SVon;
+    const sBisTime = platzElement.querySelectorAll("input[type='time']")[3];
+    sBisTime.value = platz.SBis;
 }
 
 function allePlätzeEinsetzen() {
@@ -66,4 +86,5 @@ ws.onmessage = (event) => {
     if (date !== formatDatum(selectedDate())) return;
     selectedPlan[platzNummer] = platz;
     platzEinsetzen(platzNummer, platz);
+    Namensbefüllung(AllTeams[selectedTeam - 1]);
 };

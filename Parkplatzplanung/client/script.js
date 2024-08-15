@@ -85,6 +85,9 @@ function Namensbefüllung(Team) {
         const PSelect = CardContainer.querySelectorAll("select")[0];
         const PVon = CardContainer.querySelectorAll("input[type='time']")[0];
         const PBis = CardContainer.querySelectorAll("input[type='time']")[1];
+        const SSelect = CardContainer.querySelectorAll("select")[1];
+        const SVon = CardContainer.querySelectorAll("input[type='time']")[2];
+        const SBis = CardContainer.querySelectorAll("input[type='time']")[3];
         if (planPlatz && planPlatz.PTeam && planPlatz.PTeam != selectedTeam) {
             PSelect.disabled = true;
             PVon.disabled = true;
@@ -94,7 +97,17 @@ function Namensbefüllung(Team) {
             PVon.disabled = false;
             PBis.disabled = false;
         }
+        if (planPlatz && planPlatz.STeam && planPlatz.STeam != selectedTeam) {
+            SSelect.disabled = true;
+            SVon.disabled = true;
+            SBis.disabled = true;
+        } else {
+            SSelect.disabled = false;
+            SVon.disabled = false;
+            SBis.disabled = false;
+        }
         PSelect.innerHTML = "<option value=''>Name wählen</option>";
+        SSelect.innerHTML = "<option value=''>Name wählen</option>";
         for (let i = 0; i < allNames.length; i++) {
             const Name = allNames[i];
             let Option = document.createElement("option")
@@ -105,6 +118,17 @@ function Namensbefüllung(Team) {
                 Option.style.display = "none";
             }
             PSelect.appendChild(Option);
+        }
+        for (let i = 0; i < allNames.length; i++) {
+            const Name = allNames[i];
+            let Option = document.createElement("option")
+            Option.innerText = Name
+            Option.value = Name
+            // Blende den Namen aus, wenn er nicht teil des aktuellen Teams ist
+            if (!AllTeams[selectedTeam - 1].Mitarbeiter.includes(Name)) {
+                Option.style.display = "none";
+            }
+            SSelect.appendChild(Option);
         }
     }
     allePlätzeEinsetzen();

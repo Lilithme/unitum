@@ -35,14 +35,14 @@ app.get("/api/plan/:date", (req, res) => {
 app.post("/api/plan/:date", (req, res) => {
 	const date = req.params.date;
 	const platzNummer = req.query.platz;
-	const pTeam = req.query.pTeam ?? null;
-	const pName = req.query.pName ?? null;
-	const pVon = req.query.pVon ?? null;
-	const pBis = req.query.pBis ?? null;
-	const sTeam = req.query.sTeam ?? null;
-	const sName = req.query.sName ?? null;
-	const sVon = req.query.sVon ?? null;
-	const sBis = req.query.sBis ?? null;
+	const pTeam = req.query.pTeam ?? "";
+	const pName = req.query.pName ?? "";
+	const pVon = req.query.pVon ?? "";
+	const pBis = req.query.pBis ?? "";
+	const sTeam = req.query.sTeam ?? "";
+	const sName = req.query.sName ?? "";
+	const sVon = req.query.sVon ?? "";
+	const sBis = req.query.sBis ?? "";
 	const geblockt = req.query.geblockt ?? false;
 
 	let plan = getPlan(date);
@@ -90,14 +90,14 @@ function getPlatz(plan, platz) {
 		return {
 			PlatzNr: platz,
 			geblockt: false,
-			PTeam: null,
-			PName: null,
-			PVon: null,
-			PBis: null,
-			STeam: null,
-			SName: null,
-			SVon: null,
-			SBis: null,
+			PTeam: "",
+			PName: "",
+			PVon: "",
+			PBis: "",
+			STeam: "",
+			SName: "",
+			SVon: "",
+			SBis: "",
 		};
 	}
 	return plan[platz];

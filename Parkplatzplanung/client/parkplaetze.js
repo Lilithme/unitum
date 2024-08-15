@@ -205,6 +205,7 @@ function generiereParkplatz(Nummer) {
     CardContainer.classList.add("CardContainer");
     CardContainer.id = Nummer;
 
+    // PRIMÄR
     let PCard = document.createElement("div");
     PCard.classList.add("card");
     CardContainer.appendChild(PCard);
@@ -232,27 +233,94 @@ function generiereParkplatz(Nummer) {
     PBis.type = "time";
     PContent.appendChild(PBis);
 
+    // SEKUNDÄR
+    let SCard = document.createElement("div");
+    SCard.classList.add("card");
+    SCard.classList.add("sec");
+    const platz = getPlatz(Nummer);
+    console.log(Nummer, !!(platz && !!platz.PTeam && platz.PTeam != "") || !!(platz && !!platz.STeam && platz.STeam != ""));
+    
+    if ((platz && !!platz.PTeam && platz.PTeam != "") || (platz && !!platz.STeam && platz.STeam != "")) {
+        SCard.classList.add("ausgeklappt");
+    } else {
+        SCard.classList.remove("ausgeklappt");
+    }
+    CardContainer.appendChild(SCard);
+
+    let SContent = document.createElement("div");
+    SContent.classList.add("content");
+    SCard.appendChild(SContent);
+
+    let SSelect = document.createElement("select");
+    SContent.appendChild(SSelect);
+
+    let SLabel = document.createElement("label");
+    SLabel.innerText = "Uhrzeit";
+    SContent.appendChild(SLabel);
+
+    let SVon = document.createElement("input");
+    SVon.type = "time";
+    SContent.appendChild(SVon);
+
+    let SBis = document.createElement("input");
+    SBis.type = "time";
+    SContent.appendChild(SBis);
+
+    // PRIMÄR CLICKS & CHANGES
     PCard.onclick = function() {
         let planPlatz = getPlatz(Nummer);
-        if (!planPlatz?.PTeam) {
-            savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value)
+        if (!planPlatz?.PTeam || planPlatz?.PTeam == "") {
+            const platz = getPlatz(Nummer);
+            savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value, platz?.STeam, SSelect.value, SVon.value, SBis.value);
         }
         if (planPlatz && planPlatz.PTeam == selectedTeam) {
-            savePlatz(Nummer, "", "", "", "")
+            const platz = getPlatz(Nummer);
+            savePlatz(Nummer, "", "", "", "", platz?.STeam, SSelect.value, SVon.value, SBis.value);
         }
     }
     PSelect.onclick = function(e) { e.stopPropagation() }
-    PSelect.addEventListener("change", function() {
-        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value)
-    });
+    PSelect.onchange = function() {
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value, platz?.STeam, SSelect.value, SVon.value, SBis.value);
+    };
     PVon.onclick = function(e) { e.stopPropagation() }
     PVon.onchange = function(){
-        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value)
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value, platz?.STeam, SSelect.value, SVon.value, SBis.value);
     }
     PBis.onclick = function(e) { e.stopPropagation() }
     PBis.onchange = function(){
-        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value)
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, selectedTeam, PSelect.value, PVon.value, PBis.value, platz?.STeam, SSelect.value, SVon.value, SBis.value);
     }
-   
+
+    // SEKUNDÄR CLICKS & CHANGES
+    SCard.onclick = function() {
+        let planPlatz = getPlatz(Nummer);
+        if (!planPlatz?.STeam || planPlatz?.STeam == "") {
+            const platz = getPlatz(Nummer);
+            savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, selectedTeam, SSelect.value, SVon.value, SBis.value);
+        }
+        if (planPlatz && planPlatz.STeam == selectedTeam) {
+            const platz = getPlatz(Nummer);
+            savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, "", "", "", "");
+        }
+    }
+    SSelect.onclick = function(e) { e.stopPropagation() }
+    SSelect.onchange = function() {
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, selectedTeam, SSelect.value, SVon.value, SBis.value);
+    };
+    SVon.onclick = function(e) { e.stopPropagation() }
+    SVon.onchange = function(){
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, selectedTeam, SSelect.value, SVon.value, SBis.value);
+    }
+    SBis.onclick = function(e) { e.stopPropagation() }
+    SBis.onchange = function(){
+        const platz = getPlatz(Nummer);
+        savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, selectedTeam, SSelect.value, SVon.value, SBis.value);
+    }
+
     return CardContainer;
 }
