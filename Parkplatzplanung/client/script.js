@@ -97,7 +97,8 @@ function Namensbefüllung(Team) {
             PVon.disabled = false;
             PBis.disabled = false;
         }
-        if (planPlatz && planPlatz.STeam && planPlatz.STeam != selectedTeam) {
+        
+        if (planPlatz && parseInt(planPlatz.STeam) && parseInt(planPlatz.STeam) != selectedTeam) {
             SSelect.disabled = true;
             SVon.disabled = true;
             SBis.disabled = true;

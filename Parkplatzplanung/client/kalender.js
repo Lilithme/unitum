@@ -51,7 +51,7 @@ function updateDatum() {
 	let Datumtext = document.createElement("h3");
 	const formatter = new Intl.DateTimeFormat("de-de", { day: "2-digit", month: "2-digit", year: "numeric" });
 	const formattedDate = formatter.format(selectedDate());
-	Datumtext.innerText = formattedDate;
+	Datumtext.innerText = "Datum: " + formattedDate;
 	Datum.innerHTML = "";
 	Datum.appendChild(Datumtext);
 }

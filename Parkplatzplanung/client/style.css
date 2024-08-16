@@ -4,7 +4,9 @@
     padding: 0;
     margin: 0;
     font-family: 'Poppins', monospace;
-    box-sizing: border-box
+    box-sizing: border-box;
+    user-select: none;
+    
 }
 
 body {
@@ -17,13 +19,15 @@ body {
     /* Colors */
     --body-color: rgb(240, 239, 239);
     --sidebar-color: #ffffff;
-    --primary-color: rgb(206, 218, 219);
-    --primary-color-light: #804848;
+    --primary-shadow-color: rgba(0, 0, 0, 0.1);
+    --primary-shadow-color-light: rgba(255, 255, 255, 0.8);
     --toggle-color: #c9c3c3;
     --text-color: #5f5f5f;
     --button-color:#6eaae6;
 
-    --team1-color:#E8A8B8;
+
+    --team-color:rgb(244, 244, 244);
+    --team1-color:#acdeab;
     --team2-color:#F9BEB0;
     --team3-color:#FCE7AE;
     --team4-color:#78c3c9;
@@ -40,11 +44,13 @@ body {
 .sidebar .text {
     font-size: 25px;
     font-weight: 500px;
+    transition: var(--tran-02);
+    transition-delay: 150ms;
 }
 
 .sidebar.close .text {
     opacity: 0;
-    transition: var(--tran-01);
+    transition-delay: 0ms;
 }
 
 .sidebar.close .name-liste {
@@ -57,20 +63,31 @@ body {
     align-items: center;
 }
 
+.sidebar .car {
+    width: 32px;
+    fill: var(--text-color);
+    margin-right: -10px;
+}
+
 /* sidebar */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-    width: 250px;
+    width: 210px;
     padding: 10px 14px;
     background: var(--sidebar-color);
     transition: var(--tran-04);
+    box-shadow:
+    /* inset 5px 5px 8px var(--primary-shadow-color),  */
+    inset -5px -5px 15px var(--primary-shadow-color-light),
+    5px 5px 8px var(--primary-shadow-color),
+    -5px -5px 15px var(--primary-shadow-color-light);
 }
 
 .sidebar.close {
-    width: 75px;
+    width: 68px;
 }
 .main.sidebar-ausgeklappt {
     margin-left: 150px;
@@ -148,6 +165,8 @@ body {
 header .image-text .header-text {
     display: flex;
     flex-direction: column;
+    margin-left: -20px;
+    color: var(--text-color);
 }
 .sidebar header .toggle {
     position: absolute;
@@ -157,10 +176,17 @@ header .image-text .header-text {
     height: 30px;
     width: 30px;
     fill:var(--button-color);
+    background-color: #fff;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: var(--tran-04);
 }
+.sidebar.close header .toggle {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 /* Team Namen */
 .sidebar .name-liste{
     display: flex;
@@ -210,10 +236,10 @@ header .image-text .header-text {
     justify-content: center;
     align-items: center;
     box-shadow:
-        /* inset 5px 5px 8px rgba(0, 0, 0, 0.1),  */
-        inset -5px -5px 15px rgba(255, 255, 255, 0.8),
-        5px 5px 8px rgba(0, 0, 0, 0.1),
-        -5px -5px 15px rgba(255, 255, 255, 0.8);
+        /* inset 5px 5px 8px var(--primary-shadow-color),  */
+        inset -5px -5px 15px var(--primary-shadow-color-light),
+        5px 5px 8px var(--primary-shadow-color),
+        -5px -5px 15px var(--primary-shadow-color-light);
     border-radius: 20px;
     margin: 15px 200px;
     background: transparent;
@@ -227,7 +253,7 @@ header .image-text .header-text {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 10px;
+    margin-top: 10px;   
     margin-right: 5px;
     background-color: transparent;
 
@@ -238,34 +264,37 @@ header .image-text .header-text {
     width: 260px;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: /*inset 5px 5px 8px rgba(0, 0, 0, 0.1),*/
-        inset -5px -5px 15px rgba(255, 255, 255, 0.8),
-        5px 5px 8px rgba(0, 0, 0, 0.1),
-        -5px -5px 15px rgba(255, 255, 255, 0.8);
+    box-shadow: /*inset 5px 5px 8px var(--primary-shadow-color),*/
+        inset -5px -5px 15px var(--primary-shadow-color-light),
+        5px 5px 8px var(--primary-shadow-color),
+        -5px -5px 15px var(--primary-shadow-color-light);
     border-radius: 20px;
     margin: 9px;
     padding: 15px;
     text-align: center;
-    background: var(--body-color);
+    background: var(--team-color);
     z-index: 100;
     position: relative;
+    
 }
 
 .card h3 {
     font-size: 16px;
+    
 }
 
 label {
-    font-size: 15px;
+    font-size: 14px;
     padding: 4px;
     opacity: 70%;
+    margin-left: -10px;
 }
 
 select {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-top: 5px;
     width: 215px;
-    padding: 4px;
+    
     border: none;
     background-color: transparent;
 }
@@ -279,15 +308,17 @@ input {
 
 
 .card.sec {
-    margin-top: -120px;
+    padding-top: 38px;
+    margin-top: -118px;
     z-index: 50;
     position: relative;
+    transition: var(--tran-04);
 
 }
 
 .card.sec.ausgeklappt{
+    padding-top: 110px;
 
-    margin-top: -30px;
     z-index: 50;
     position: relative;
 }
@@ -341,13 +372,15 @@ input {
 }
 
 .Datum {
-    margin-left: 200px;
-    padding: 15px 25px;
+    margin-left: 210px;
     width: calc(100% - 450px);
-
+    font-size: 16px;
+    color: var(--text-color);
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin-top: 0px;
+    font-family: 'Poppins', sans-serif;
+    
 }
 
 .active {

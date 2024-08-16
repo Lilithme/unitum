@@ -48,15 +48,15 @@ function platzEinsetzen(platzNummer, platz) {
     pBisTime.value = platz.PBis;
 
     const sCard = platzElement.querySelector(".sec");
-    if ((platz && !!platz.PTeam && platz.PTeam != "")) {
+    if ((platz && platz.PVon && platz.PBis) || (platz && !!parseInt(platz.STeam) )) {
         sCard.classList.add("ausgeklappt");
     } else {
         sCard.classList.remove("ausgeklappt");
     }
 
     sCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
-        5px 5px 8px rgba(0, 0, 0, 0.1),
-        -5px -5px 15px rgba(255, 255, 255, 0.8)`;
+    5px 5px 8px rgba(0, 0, 0, 0.1),
+    -5px -5px 15px rgba(255, 255, 255, 0.8)`;
     sCard.style.background = `var(--team${platz.STeam}-color)`;
 
     const sName = platzElement.querySelectorAll("select")[1];
