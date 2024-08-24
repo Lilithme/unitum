@@ -39,10 +39,12 @@ app.post("/api/plan/:date", (req, res) => {
 	const pName = req.query.pName ?? "";
 	const pVon = req.query.pVon ?? "";
 	const pBis = req.query.pBis ?? "";
+	const Pgebucht = req.query.Pgebucht ?? "";
 	const sTeam = req.query.sTeam ?? "";
 	const sName = req.query.sName ?? "";
 	const sVon = req.query.sVon ?? "";
 	const sBis = req.query.sBis ?? "";
+	const Sgebucht = req.query.Sgebucht ?? "";
 	const geblockt = req.query.geblockt ?? false;
 
 	let plan = getPlan(date);
@@ -53,14 +55,16 @@ app.post("/api/plan/:date", (req, res) => {
 	platz.PName = pName;
 	platz.PVon = pVon;
 	platz.PBis = pBis;
+	platz.Pgebucht = Pgebucht;
 	platz.STeam = sTeam;
 	platz.SName = sName;
 	platz.SVon = sVon;
 	platz.SBis = sBis;
+	platz.Sgebucht = Sgebucht;
 
 	plan = { ...plan, [platzNummer]: platz };
 	savePlan(date, plan);
-  Object.values(connections).forEach((ws) => {
+	Object.values(connections).forEach((ws) => {
     ws.send(JSON.stringify({date, platz}));
 });
 
@@ -94,10 +98,12 @@ function getPlatz(plan, platz) {
 			PName: "",
 			PVon: "",
 			PBis: "",
+			Pgebucht: "",
 			STeam: "",
 			SName: "",
 			SVon: "",
 			SBis: "",
+			Sgebucht: "",
 		};
 	}
 	return plan[platz];

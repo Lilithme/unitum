@@ -46,7 +46,7 @@ let selectedTeam = "1"
 
 const Team1 = {
     Teambezeichnung: "Team1",
-    Mitarbeiter: ['Harry', 'Draco', 'Hermine', 'Ron', 'Dobby', 'Minerva', 'Hedwig', 'Albus']
+    Mitarbeiter: ['Mathias', 'Julia', 'Matthias', 'Samantha', 'Manu', 'Steffi']
 };
 
 const Team2 = {
@@ -55,18 +55,23 @@ const Team2 = {
 };
 
 const Team3 = {
-    Teambezeichnung: "Team3",
-    Mitarbeiter: ['Anakin', 'Luke', 'Leia', 'Boba', 'Chewbacca', 'Kylo']
+    Teambezeichnung: "Team4",
+    Mitarbeiter: ['Harry', 'Ste', 'Barbara', 'Tamy', 'Olga', 'Mathias']
 };
 
 const Team4 = {
-    Teambezeichnung: "Team4",
+    Teambezeichnung: "Team5",
     Mitarbeiter: ['Tealc', 'Janet', 'Jack', 'Daniel', 'Samantha']
 };
 
 const Team5 = {
-    Teambezeichnung: "Team5",
+    Teambezeichnung: "Team6",
     Mitarbeiter: ['Aragon', 'Gandalf', 'Sauron', 'Legolas', 'Galadriel', 'Frodo', 'Gimli']
+};
+
+const Team6 = {
+    Teambezeichnung: "Team8",
+    Mitarbeiter: ['Aragon', 'Tealc', 'Anakin', 'Data', 'Harry']
 };
 
 const Team0 = {
@@ -74,7 +79,7 @@ const Team0 = {
     Mitarbeiter: ['Aragon', 'Tealc', 'Anakin', 'Data', 'Harry']
 };
 
-const AllTeams = [Team1, Team2, Team3, Team4, Team5]
+const AllTeams = [Team1, Team2, Team3, Team4, Team5, Team6]
 
 function Namensbefüllung(Team) {
     let CardContainerList = document.querySelectorAll('.CardContainer')

@@ -88,7 +88,7 @@ function generiereParkplatz(Nummer) {
 	SCard.classList.add("sec");
 	const platz = getPlatz(Nummer);
 
-	if ((platz && platz.PVon && platz.PBis) || (platz && !!parseInt(platz.STeam))) {
+	if ((platz && platz.PVon && platz.PBis)) {
 		SCard.classList.add("ausgeklappt");
 	} else {
 		SCard.classList.remove("ausgeklappt");
