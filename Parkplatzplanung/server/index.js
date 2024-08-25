@@ -28,7 +28,7 @@ app.get("/api/plan/:date", (req, res) => { //req = request, res = result - frei 
 		Object.keys(plan).forEach((platzNr) => {
 			const platz = plan[platzNr];
 			if (!platz.PName || !platz.PVon || !platz.PBis) {
-				if (platz.Pgebucht < new Date().getTime()-1000*60*60*24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
+				if (platz.Pgebucht < new Date().getTime() - 1000 * 60 * 60 * 24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
 					platz.PName = "";
 					platz.PTeam = "";
 					platz.PVon = "";
@@ -36,14 +36,16 @@ app.get("/api/plan/:date", (req, res) => { //req = request, res = result - frei 
 				}
 			}
 			if (!platz.SName || !platz.SVon || !platz.SBis) {
-				if (platz.Sgebucht < new Date().getTime()-1000*60*60*24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
+				if (platz.Sgebucht < new Date().getTime() - 1000 * 60 * 60 * 24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
 					platz.SName = "";
 					platz.STeam = "";
 					platz.SVon = "";
 					platz.SBis = "";
 				}
 			}
-			ws.send(JSON.stringify({date, platz}));
+			Object.values(connections).forEach((ws) => {
+				ws.send(JSON.stringify({ date, platz }));
+			});
 		})
 		res.send(plan);
 	} else {
@@ -83,8 +85,8 @@ app.post("/api/plan/:date", (req, res) => {
 	plan = { ...plan, [platzNummer]: platz };
 	savePlan(date, plan);
 	Object.values(connections).forEach((ws) => {
-    ws.send(JSON.stringify({date, platz}));
-});
+		ws.send(JSON.stringify({ date, platz }));
+	});
 
 	res.json(plan);
 });
