@@ -4,6 +4,7 @@ function getPlatz(Nummer) {
     return Object.values(selectedPlan).find((platz) => platz.PlatzNr == Nummer)
 }
 
+// fetch holt plan .then = danach => liest es als json und danach benutzt den plan zum anzeigen. .catch wenn nicht klappt dann nix anzeigen
 function loadPlan(date) {
     fetch(`/api/plan/${formatDatum(date)}`)
         .then((res) => res.json())
@@ -25,7 +26,7 @@ function savePlatz(platzNummer, pTeam, pName, pVon, pBis, sTeam, sName, sVon, sB
         allePlätzeEinsetzen();
         return;
     }
-    const query = new URLSearchParams({ platz: platzNummer, pTeam, pName, pVon, pBis, sTeam, sName, sVon, sBis });
+    const query = new URLSearchParams({ platz: platzNummer, pTeam:parseInt(pTeam) || "", pName, pVon, pBis, sTeam:parseInt(sTeam) || "", sName, sVon, sBis });
     fetch(`/api/plan/${formatDatum(selectedDate())}?${query}`, {
         method: "POST",
     });

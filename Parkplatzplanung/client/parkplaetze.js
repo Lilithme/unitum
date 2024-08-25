@@ -136,6 +136,7 @@ function generiereParkplatz(Nummer) {
 			savePlatz(Nummer, "", "", "", "", platz?.STeam, SSelect.value, SVon.value, SBis.value);
 		}
 	};
+	//Stoppt den Klick durch die Karte durch wenn man Namen usw aufwählt - verhindert, dass Karte wieder abgewählt wird.
 	PSelect.onclick = function (e) {
 		e.stopPropagation();
 	};
@@ -205,7 +206,7 @@ function generiereParkplatz(Nummer) {
 				SBis.value
 			);
 		}
-		if (planPlatz && planPlatz.STeam == selectedTeam) {
+		if (planPlatz && planPlatz.STeam == selectedTeam ) {
 			const platz = getPlatz(Nummer);
 			savePlatz(Nummer, platz.PTeam, PSelect.value, PVon.value, PBis.value, "", "", "", "");
 		}

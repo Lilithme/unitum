@@ -34,6 +34,8 @@ const kleinsterAktuellerWochentag = Math.min(
 );
 selectedKW = aktuelleWoche.kw;
 selectedTag = new Date().getDay() - 1;
+if (selectedTag == -1) selectedTag = 0 // wenn Sonntag wird auf Montag gesetzt = 0
+if (selectedTag == 5) selectedTag = 4 // wenn Samstag wird auf Freitag gesetzt = 4
 
 // Die Kalenderwochen Daten aller Wochen von -1 bis +5
 const kwDaten = [];

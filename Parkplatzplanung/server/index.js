@@ -21,10 +21,30 @@ wss.on("connection", function connection(ws) {
 
 app.use(express.static("../client"));
 
-app.get("/api/plan/:date", (req, res) => {
-	const date = req.params.date;
+app.get("/api/plan/:date", (req, res) => { //req = request, res = result - frei benennbar
+	const date = req.params.date; // reg.params = :date <- kp muss so
 	const plan = getPlan(date);
 	if (plan) {
+		Object.keys(plan).forEach((platzNr) => {
+			const platz = plan[platzNr];
+			if (!platz.PName || !platz.PVon || !platz.PBis) {
+				if (platz.Pgebucht < new Date().getTime()-1000*60*60*24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
+					platz.PName = "";
+					platz.PTeam = "";
+					platz.PVon = "";
+					platz.PBis = "";
+				}
+			}
+			if (!platz.SName || !platz.SVon || !platz.SBis) {
+				if (platz.Sgebucht < new Date().getTime()-1000*60*60*24) { // Wenn die Parklätze in anderem Zeit turnus gelöscht werden sollen <- hier anpassen 24 h
+					platz.SName = "";
+					platz.STeam = "";
+					platz.SVon = "";
+					platz.SBis = "";
+				}
+			}
+			ws.send(JSON.stringify({date, platz}));
+		})
 		res.send(plan);
 	} else {
 		res.status(404).send("Plan not found");
@@ -39,12 +59,10 @@ app.post("/api/plan/:date", (req, res) => {
 	const pName = req.query.pName ?? "";
 	const pVon = req.query.pVon ?? "";
 	const pBis = req.query.pBis ?? "";
-	const Pgebucht = req.query.Pgebucht ?? "";
 	const sTeam = req.query.sTeam ?? "";
 	const sName = req.query.sName ?? "";
 	const sVon = req.query.sVon ?? "";
 	const sBis = req.query.sBis ?? "";
-	const Sgebucht = req.query.Sgebucht ?? "";
 	const geblockt = req.query.geblockt ?? false;
 
 	let plan = getPlan(date);
@@ -55,12 +73,12 @@ app.post("/api/plan/:date", (req, res) => {
 	platz.PName = pName;
 	platz.PVon = pVon;
 	platz.PBis = pBis;
-	platz.Pgebucht = Pgebucht;
+	platz.Pgebucht = new Date().getTime();
 	platz.STeam = sTeam;
 	platz.SName = sName;
 	platz.SVon = sVon;
 	platz.SBis = sBis;
-	platz.Sgebucht = Sgebucht;
+	platz.Sgebucht = new Date().getTime();
 
 	plan = { ...plan, [platzNummer]: platz };
 	savePlan(date, plan);
@@ -98,12 +116,12 @@ function getPlatz(plan, platz) {
 			PName: "",
 			PVon: "",
 			PBis: "",
-			Pgebucht: "",
+			Pgebucht: 0,
 			STeam: "",
 			SName: "",
 			SVon: "",
 			SBis: "",
-			Sgebucht: "",
+			Sgebucht: 0,
 		};
 	}
 	return plan[platz];

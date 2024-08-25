@@ -42,7 +42,15 @@ wochentage.forEach((Tag, i) => {
 
 //----------- Objekte mit Team Bezeichnungen und MA ------------------------------------------------
 
-let selectedTeam = "1"
+let isAdmin = false;
+let selectedTeam = window.sessionStorage.getItem("gewähltesTeam");
+if (selectedTeam == undefined) {
+    window.location.replace("/login.html");
+}
+if (selectedTeam == "7") {
+    isAdmin = true;
+    selectedTeam = "1";
+}
 
 const Team1 = {
     Teambezeichnung: "Team1",
@@ -56,7 +64,7 @@ const Team2 = {
 
 const Team3 = {
     Teambezeichnung: "Team4",
-    Mitarbeiter: ['Harry', 'Ste', 'Barbara', 'Tamy', 'Olga', 'Mathias']
+    Mitarbeiter: ['Harry', 'Ste', 'Barbara', 'Tamy', 'Olga', 'Mathias G.']
 };
 
 const Team4 = {
@@ -161,9 +169,22 @@ for (let i = 0; i < Navigation.length; i++) {
             Liste.classList.remove("sichtbar");
         });
         Teammitglieder.classList.toggle("sichtbar")
-        selectedTeam = i + 1
+        if (isAdmin == true) {
+            selectedTeam = i + 1
+        }
 
-        Namensbefüllung(AllTeams[selectedTeam - 1]);
+        Namensbefüllung(AllTeams[i]);
     }
 }
 loadPlan(selectedDate())
+
+
+// Logout 
+
+const Logoutbutton = document.querySelector(".Logout")
+Logoutbutton.addEventListener("click", () => {
+
+    window.sessionStorage.removeItem("gewähltesTeam")
+    window.location.replace("/login.html");
+
+});
