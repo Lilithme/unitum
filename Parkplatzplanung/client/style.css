@@ -24,6 +24,7 @@ body {
     --toggle-color: #c9c3c3;
     --text-color: #5f5f5f;
     --button-color:#6eaae6;
+    --gesperrt-color:#b9b9b9;
 
 
     --team-color:rgb(244, 244, 244);
@@ -282,6 +283,10 @@ header .image-text .header-text {
 .card h3 {
     font-size: 16px;
     
+}
+.card.gesperrt {
+
+    background: var(--gesperrt-color);
 }
 
 label {

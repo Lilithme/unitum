@@ -30,6 +30,7 @@ function clearParkplatz(Nummer) {
 	if (!platzElement) throw new Error(`Platz ${Nummer} nicht gefunden`);
 
 	const pCard = platzElement.querySelectorAll(".card")[0];
+	pCard.classList.remove("gesperrt");
 	pCard.style = undefined;
 	const pName = platzElement.querySelectorAll("select")[0];
 	pName.value = "";
@@ -39,6 +40,7 @@ function clearParkplatz(Nummer) {
 	pBisTime.value = "";
 
 	const sCard = platzElement.querySelectorAll(".card")[1];
+	sCard.classList.remove("gesperrt");
 	sCard.style = undefined;
 	sCard.classList.remove("ausgeklappt");
 	const sName = platzElement.querySelectorAll("select")[1];
@@ -47,6 +49,11 @@ function clearParkplatz(Nummer) {
 	sVonTime.value = "";
 	const sBisTime = platzElement.querySelectorAll("input[type='time']")[3];
 	sBisTime.value = "";
+
+	if (new Date(selectedDate().toDateString()) < new Date(new Date().toDateString())) {
+        pCard.classList.add("gesperrt");
+        sCard.classList.add("gesperrt");
+    }
 }
 
 function generiereParkplatz(Nummer) {
@@ -57,6 +64,7 @@ function generiereParkplatz(Nummer) {
 	// PRIMÄR
 	let PCard = document.createElement("div");
 	PCard.classList.add("card");
+	PCard.classList.remove("gesperrt");
 	CardContainer.appendChild(PCard);
 
 	let PContent = document.createElement("div");
@@ -86,6 +94,7 @@ function generiereParkplatz(Nummer) {
 	let SCard = document.createElement("div");
 	SCard.classList.add("card");
 	SCard.classList.add("sec");
+	SCard.classList.remove("gesperrt");
 	const platz = getPlatz(Nummer);
 
 	if ((platz && platz.PVon && platz.PBis)) {

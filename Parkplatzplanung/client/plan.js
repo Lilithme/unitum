@@ -65,6 +65,18 @@ function platzEinsetzen(platzNummer, platz) {
         sCard.classList.remove("ausgeklappt");
     }
 
+    if (platz.geblockt) {
+        pCard.classList.add("gesperrt");
+        sCard.classList.add("gesperrt");
+    }else{
+        pCard.classList.remove("gesperrt");
+        sCard.classList.remove("gesperrt");
+    }
+    if (new Date(selectedDate().toDateString()) < new Date(new Date().toDateString())) {
+        pCard.classList.add("gesperrt");
+        sCard.classList.add("gesperrt");
+    }
+
     // Primäre Karte stylen und Daten setzen
     pCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
         5px 5px 8px rgba(0, 0, 0, 0.1),
