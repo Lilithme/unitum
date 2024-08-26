@@ -20,7 +20,7 @@ body {
 
 :root {
     /* Colors */
-    --body-color: rgb(87, 87, 87);
+    --body-color: rgb(240, 239, 239);;
     --sidebar-color: #ffffff;
     --primary-shadow-color: rgba(0, 0, 0, 0.1);
     --primary-shadow-color-light: rgba(255, 255, 255, 0.8);

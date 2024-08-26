@@ -184,7 +184,7 @@ loadPlan(selectedDate())
 const Logoutbutton = document.querySelector(".Logout")
 Logoutbutton.addEventListener("click", () => {
 
-    window.localStorageStorage.removeItem("gewähltesTeam")
+    window.localStorage.removeItem("gewähltesTeam")
     window.location.replace("/login.html");
 
 });
