@@ -6,7 +6,7 @@
     font-family: 'Poppins', monospace;
     box-sizing: border-box;
     user-select: none;
-    
+
 }
 
 body {
@@ -20,22 +20,22 @@ body {
 
 :root {
     /* Colors */
-    --body-color: rgb(240, 239, 239);
+    --body-color: rgb(87, 87, 87);
     --sidebar-color: #ffffff;
     --primary-shadow-color: rgba(0, 0, 0, 0.1);
     --primary-shadow-color-light: rgba(255, 255, 255, 0.8);
     --toggle-color: #c9c3c3;
     --text-color: #5f5f5f;
-    --button-color:#6eaae6;
+    --button-color: #6eaae6;
 
 
-    --team-color:rgb(244, 244, 244);
-    --team1-color:#acdeab;
-    --team2-color:#F9BEB0;
-    --team3-color:#FCE7AE;
-    --team4-color:#78c3c9;
-    --team5-color:#c09bbc;
-    --team6-color:#5087cf;
+    --team-color: rgb(244, 244, 244);
+    --team1-color: #acdeab;
+    --team2-color: #F9BEB0;
+    --team3-color: #FCE7AE;
+    --team4-color: #78c3c9;
+    --team5-color: #c09bbc;
+    --team6-color: #5087cf;
 
     /* transition */
     --tran-02: all 0.2s ease;
@@ -43,6 +43,7 @@ body {
     --tran-04: all 0.4s ease;
     --tran-05: all 0.5s ease;
 }
+
 .Login {
     height: 350px;
     width: 600px;
@@ -78,9 +79,11 @@ body {
     margin-left: 60px;
     margin-top: 40px;
     position: relative;
-    align-items: center; /* Zentriert den Inhalt vertikal innerhalb des Containers */
-    justify-content: flex-end; /* Richtet den Inhalt horizontal am rechten Rand aus */
-    text-align: right; 
+    align-items: center;
+    /* Zentriert den Inhalt vertikal innerhalb des Containers */
+    justify-content: flex-end;
+    /* Richtet den Inhalt horizontal am rechten Rand aus */
+    text-align: right;
 
 }
 
@@ -92,9 +95,11 @@ body {
     margin-left: 60px;
     margin-top: 5px;
     position: relative;
-    align-items: center; /* Zentriert den Inhalt vertikal innerhalb des Containers */
-    justify-content: flex-end; /* Richtet den Inhalt horizontal am rechten Rand aus */
-    text-align: right; 
+    align-items: center;
+    /* Zentriert den Inhalt vertikal innerhalb des Containers */
+    justify-content: flex-end;
+    /* Richtet den Inhalt horizontal am rechten Rand aus */
+    text-align: right;
 }
 
 
@@ -102,28 +107,41 @@ select {
 
     margin-left: 20px;
     margin-right: 100px;
-    border: none; /* Entfernt alle Standard-Rahmen */
-    border-bottom: 2px solid #ccc; /* Fügt nur eine untere Grenze hinzu */
-    outline: none; /* Entfernt den Fokus-Rahmen */
-    padding: 0px; /* Fügt Innenabstand hinzu, damit der Text nicht direkt am Rand klebt */
-    font-size: 16px; /* Optionale Schriftgröße */
-    background: transparent; /* Hintergrund transparent, um die Border klar hervorzuheben */
+    border: none;
+    /* Entfernt alle Standard-Rahmen */
+    border-bottom: 2px solid #ccc;
+    /* Fügt nur eine untere Grenze hinzu */
+    outline: none;
+    /* Entfernt den Fokus-Rahmen */
+    padding: 0px;
+    /* Fügt Innenabstand hinzu, damit der Text nicht direkt am Rand klebt */
+    font-size: 16px;
+    /* Optionale Schriftgröße */
+    background: transparent;
+    /* Hintergrund transparent, um die Border klar hervorzuheben */
 }
 
 input {
-    
+
     margin-left: 20px;
     margin-right: 100px;
-    border: none; /* Entfernt alle Standard-Rahmen */
-    border-bottom: 2px solid #ccc; /* Fügt nur eine untere Grenze hinzu */
-    outline: none; /* Entfernt den Fokus-Rahmen */
-    padding: 0px; /* Fügt Innenabstand hinzu, damit der Text nicht direkt am Rand klebt */
-    font-size: 16px; /* Optionale Schriftgröße */
-    background: transparent; /* Hintergrund transparent, um die Border klar hervorzuheben */
+    border: none;
+    /* Entfernt alle Standard-Rahmen */
+    border-bottom: 2px solid #ccc;
+    /* Fügt nur eine untere Grenze hinzu */
+    outline: none;
+    /* Entfernt den Fokus-Rahmen */
+    padding: 0px;
+    /* Fügt Innenabstand hinzu, damit der Text nicht direkt am Rand klebt */
+    font-size: 16px;
+    /* Optionale Schriftgröße */
+    background: transparent;
+    /* Hintergrund transparent, um die Border klar hervorzuheben */
 }
+
 input:focus {
-    border-bottom: 2px solid #83b1bd; 
-    box-shadow: none; 
+    border-bottom: 2px solid #83b1bd;
+    box-shadow: none;
 }
 
 .PW_Speichern {
@@ -134,37 +152,44 @@ input:focus {
     width: 500px;
     font-size: 14px;
     color: var(--text-color);
-    align-items: center; /* Zentriert den Inhalt vertikal innerhalb des Containers */
-    justify-content: center; /* Richtet den Inhalt horizontal am rechten Rand aus */
+    align-items: center;
+    /* Zentriert den Inhalt vertikal innerhalb des Containers */
+    justify-content: center;
+    /* Richtet den Inhalt horizontal am rechten Rand aus */
     display: flex;
 }
 
 .PW_Speichern input[type="checkbox"] {
-    margin-right: 5px; /* Reduziert den Abstand zwischen Checkbox und Label */
+    margin-right: 5px;
+    /* Reduziert den Abstand zwischen Checkbox und Label */
 }
+
 button[type="submit"] {
     display: flex;
     color: #ffffff;
     height: 40px;
     width: 120px;
     margin-top: 30px;
-    margin-left: 250px; 
+    margin-left: 250px;
     background: #83b1bd;
     border: none;
     border-radius: 12px;
-    box-shadow: 8px 8px 15px #a3b1c6, -8px -8px 15px #ffffff; /* Neumorphismus-Schattierung */
+    box-shadow: 8px 8px 15px #a3b1c6, -8px -8px 15px #ffffff;
+    /* Neumorphismus-Schattierung */
     font-size: 16px;
     padding: 10px 20px;
     cursor: pointer;
     transition: box-shadow 0.3s ease-in-out;
-    
+
 }
 
 button[type="submit"]:hover {
-    box-shadow: 4px 4px 10px #a3b1c6, -4px -4px 10px #ffffff; /* Schatten beim Hover-Effekt anpassen */
+    box-shadow: 4px 4px 10px #a3b1c6, -4px -4px 10px #ffffff;
+    /* Schatten beim Hover-Effekt anpassen */
 }
 
 button[type="submit"]:active {
-    box-shadow: inset 2px 2px 5px #a3b1c6, inset -2px -2px 5px #b1dde8; /* Schatten beim Klick-Effekt */
+    box-shadow: inset 2px 2px 5px #a3b1c6, inset -2px -2px 5px #b1dde8;
+    /* Schatten beim Klick-Effekt */
 }
 

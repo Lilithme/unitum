@@ -78,9 +78,6 @@ function platzEinsetzen(platzNummer, platz) {
     }
 
     // Primäre Karte stylen und Daten setzen
-    pCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
-        5px 5px 8px rgba(0, 0, 0, 0.1),
-        -5px -5px 15px rgba(255, 255, 255, 0.8)`;
     pCard.style.background = `var(--team${platz.PTeam}-color)`;
     pName.value = platz.PName;
     pVonTime.value = platz.PVon;
@@ -93,9 +90,6 @@ function platzEinsetzen(platzNummer, platz) {
         sCard.classList.remove("ausgeklappt");
     }
 
-    sCard.style.boxShadow = `inset -5px -5px 6px rgba(255, 255, 255, 0.2),
-        5px 5px 8px rgba(0, 0, 0, 0.1),
-        -5px -5px 15px rgba(255, 255, 255, 0.8)`;
     sCard.style.background = `var(--team${platz.STeam}-color)`;
     sName.value = platz.SName;
     sVonTime.value = platz.SVon;

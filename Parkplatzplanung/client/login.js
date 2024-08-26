@@ -14,7 +14,7 @@ function Login() {
 
     if (Passwort.value == Passworte[Teambezeichnung.value - 1]) { //in [steht der Index] - 1 da im array mit 0 gestartet wird unser index aber 1 ausgibt
         
-        window.sessionStorage.setItem("gewähltesTeam", Teambezeichnung.value)
+        window.localStorage.setItem("gewähltesTeam", Teambezeichnung.value)
         
         window.location.replace("/");
     }

@@ -43,7 +43,7 @@ wochentage.forEach((Tag, i) => {
 //----------- Objekte mit Team Bezeichnungen und MA ------------------------------------------------
 
 let isAdmin = false;
-let selectedTeam = window.sessionStorage.getItem("gewähltesTeam");
+let selectedTeam = window.localStorage.getItem("gewähltesTeam");
 if (selectedTeam == undefined) {
     window.location.replace("/login.html");
 }
@@ -184,7 +184,45 @@ loadPlan(selectedDate())
 const Logoutbutton = document.querySelector(".Logout")
 Logoutbutton.addEventListener("click", () => {
 
-    window.sessionStorage.removeItem("gewähltesTeam")
+    window.localStorageStorage.removeItem("gewähltesTeam")
     window.location.replace("/login.html");
 
 });
+
+// Dark & Light Mode
+
+const DarkLightMode = document.querySelector("input.input");
+
+// Überprüfe, ob das Element existiert
+if (DarkLightMode) {
+    let light = true;
+
+    DarkLightMode.addEventListener("click", () => {
+        if (light) {
+            // Setze die Farben für den "dunkleren" Modus
+            document.documentElement.style.setProperty('--body-color', '#131416');
+            document.documentElement.style.setProperty('--sidebar-color', '#18181e');
+            document.documentElement.style.setProperty('--text-color', '#969696');
+            document.documentElement.style.setProperty('--primary-shadow-color', '#080809')
+            document.documentElement.style.setProperty('--primary-shadow-color-light', '#1e2023')
+            document.documentElement.style.setProperty('--background-container-color', '#18181e')
+            document.documentElement.style.setProperty('--team-color', 'rgb(89 97 111)')
+            document.documentElement.style.setProperty('--kw-color', 'rgb(89 97 111)')
+            
+        } else {
+            // Setze die Farben zurück in den "helleren" Modus
+            document.documentElement.style.setProperty('--body-color', 'rgb(240, 239, 239)');
+            document.documentElement.style.setProperty('--sidebar-color', '#ffffff');
+            document.documentElement.style.setProperty('--text-color', '#5f5f5f');
+            document.documentElement.style.setProperty('--primary-shadow-color', 'rgba(0, 0, 0, 0.1)')
+            document.documentElement.style.setProperty('--primary-shadow-color-light', 'rgba(255, 255, 255, 0.8)')
+            document.documentElement.style.setProperty('--background-container-color', 'rgb(240, 239, 239)')
+            document.documentElement.style.setProperty('--team-color', '#ffffff')
+            document.documentElement.style.setProperty('--kw-color', 'rgb(206, 218, 219)')
+        }
+        // Umschalten des Modus
+        light = !light;
+    });
+} else {
+    console.error("Das Element 'label.toggle' wurde nicht gefunden.");
+}
