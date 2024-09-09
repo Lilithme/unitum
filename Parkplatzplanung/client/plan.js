@@ -78,7 +78,12 @@ function platzEinsetzen(platzNummer, platz) {
     }
 
     // Primäre Karte stylen und Daten setzen
-    pCard.style.background = `var(--team${platz.PTeam}-color)`;
+    if (platz.PTeam) {
+        pCard.style.background = `var(--team${platz.PTeam}-color)`; 
+    }else{
+        pCard.style.background = null
+    }
+
     pName.value = platz.PName;
     pVonTime.value = platz.PVon;
     pBisTime.value = platz.PBis;
@@ -89,8 +94,12 @@ function platzEinsetzen(platzNummer, platz) {
     } else {
         sCard.classList.remove("ausgeklappt");
     }
-
-    sCard.style.background = `var(--team${platz.STeam}-color)`;
+    if (platz.STeam) {
+        sCard.style.background = `var(--team${platz.STeam}-color)`;
+    }else{
+        sCard.style.background = null
+    }
+    
     sName.value = platz.SName;
     sVonTime.value = platz.SVon;
     sBisTime.value = platz.SBis;
@@ -109,7 +118,7 @@ function formatDatum(date) {
 }
 
 const host = window.location.host;
-const ws = new WebSocket(`ws://${host}`);
+let ws = new WebSocket(`ws://${host}`);
 ws.onmessage = (event) => {
     const {date, platz} = JSON.parse(event.data);
     const platzNummer = platz.PlatzNr;
@@ -118,3 +127,7 @@ ws.onmessage = (event) => {
     platzEinsetzen(platzNummer, platz);
     Namensbefüllung(AllTeams[selectedTeam - 1]);
 };
+
+ws.onclose = () => {
+    ws = new WebSocket(`ws://${host}`);
+}

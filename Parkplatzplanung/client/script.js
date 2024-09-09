@@ -17,8 +17,11 @@ kwDaten.forEach((kw) => {
     if (kw.kw == selectedKW) KWText.classList.add("active");
     KW_Liste.appendChild(KWText);
     KWText.onclick = function () {
-        selectKW(kw.kw);
-        KWText.classList.add("active");
+        if (selectKW(kw.kw)) {
+            KWText.classList.add("active");
+        }else{
+            window.alert("ab Montag 14 Uhr verfügbar")
+        };
     };
 });
 
@@ -92,7 +95,7 @@ const AllTeams = [Team1, Team2, Team3, Team4, Team5, Team6]
 function Namensbefüllung(Team) {
     let CardContainerList = document.querySelectorAll('.CardContainer')
     let allNames = [...Team1.Mitarbeiter, ...Team2.Mitarbeiter, ...Team3.Mitarbeiter, ...Team4.Mitarbeiter, ...Team5.Mitarbeiter]
-    for (let j = 0 ; j < CardContainerList.length; j++){
+    for (let j = 0; j < CardContainerList.length; j++) {
         const CardContainer = CardContainerList[j];
         const planPlatz = getPlatz(CardContainer.id);
         const PSelect = CardContainer.querySelectorAll("select")[0];
@@ -110,7 +113,7 @@ function Namensbefüllung(Team) {
             PVon.disabled = false;
             PBis.disabled = false;
         }
-        
+
         if (planPlatz && parseInt(planPlatz.STeam) && parseInt(planPlatz.STeam) != selectedTeam) {
             SSelect.disabled = true;
             SVon.disabled = true;
@@ -163,7 +166,7 @@ for (let i = 0; i < Navigation.length; i++) {
         Teammitglied.value = Name
         Teammitglieder.appendChild(Teammitglied);
     }
-    NavLink.onclick = function(){
+    NavLink.onclick = function () {
         let NamenListen = document.querySelectorAll(".name-liste")
         Array.from(NamenListen).forEach((Liste) => {
             Liste.classList.remove("sichtbar");
@@ -181,7 +184,7 @@ loadPlan(selectedDate())
 
 // Logout 
 
-const Logoutbutton = document.querySelector(".Logout")
+const Logoutbutton = document.querySelector(".picture.Logout")
 Logoutbutton.addEventListener("click", () => {
 
     window.localStorage.removeItem("gewähltesTeam")
@@ -208,7 +211,7 @@ if (DarkLightMode) {
             document.documentElement.style.setProperty('--background-container-color', '#18181e')
             document.documentElement.style.setProperty('--team-color', 'rgb(89 97 111)')
             document.documentElement.style.setProperty('--kw-color', 'rgb(89 97 111)')
-            
+
         } else {
             // Setze die Farben zurück in den "helleren" Modus
             document.documentElement.style.setProperty('--body-color', 'rgb(240, 239, 239)');

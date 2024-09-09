@@ -6,11 +6,9 @@
     font-family: 'Poppins', monospace;
     box-sizing: border-box;
     user-select: none;
-
 }
 
 body {
-    /* height: 100vh; */
     background: var(--body-color);
     min-width: 1100px;
 }
@@ -27,12 +25,7 @@ body {
     --button-color: #6eaae6;
     --gesperrt-color: #c9c3c3;
     --kw-color: rgb(206, 218, 219);
-
-
-
-    --team-color: rgb(244, 244, 244);
-
-
+    /*--team-color: rgb(244, 244, 244);*/
     --team1-color: #acdeab;
     --team2-color: #F9BEB0;
     --team3-color: #FCE7AE;
@@ -47,7 +40,7 @@ body {
     --tran-05: all 0.5s ease;
 }
 
-/* resuable css */
+/* Reusable CSS */
 .sidebar .text {
     font-size: 25px;
     font-weight: 500px;
@@ -76,7 +69,7 @@ body {
     margin-right: -10px;
 }
 
-/* sidebar */
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
@@ -87,7 +80,6 @@ body {
     background: var(--sidebar-color);
     transition: var(--tran-04);
     box-shadow:
-        /* inset 5px 5px 8px var(--primary-shadow-color),  */
         inset -5px -5px 15px var(--primary-shadow-color-light),
         5px 5px 8px var(--primary-shadow-color),
         -5px -5px 15px var(--primary-shadow-color-light);
@@ -95,6 +87,18 @@ body {
 
 .sidebar.close {
     width: 68px;
+}
+
+.sidebar.close .text {
+    display: none; /* Verstecke den Text im eingeklappten Zustand */
+}
+
+.sidebar.close .picture {
+    display: flex; /* Stelle sicher, dass die Bilder sichtbar bleiben */
+    justify-content: center; /* Zentriere die Bilder horizontal */
+    margin-left: 0; /* Sicherstellen, dass die Bilder nicht verschoben sind */
+    width: 30px; /* Setze die feste Breite */
+    height: 30px; /* Setze die feste Höhe */
 }
 
 .main.sidebar-ausgeklappt {
@@ -108,39 +112,37 @@ body {
 
 .sidebar .menu {
     margin-top: 150px;
-
 }
 
 .sidebar .menu-bar {
-    height: calc(100% - 50ps);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    height: calc(100% - 100px); 
 }
 
-.bottom-content {
-    position: absolute;
-    bottom: 20px;
-    width: 222px;
-}
-
+/* Sidebar Menu Items */
 .sidebar li {
     height: 50px;
-    width: 222px;
+    width: 100%;
     list-style: none;
     display: flex;
     align-items: center;
-    transition: var(--tran-04);
+}
+.sidebar .nav-link{
+    height: 50px;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sidebar li .picture,
-.sidebar li .text {
-    transition: var(--tran-02);
-}
 
 .sidebar li .picture {
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
     display: flex;
     align-items: center;
     margin-left: 5px;
@@ -153,7 +155,7 @@ body {
     align-items: center;
     margin-left: 10px;
     font-weight: 600;
-    color: var(--text-color)
+    color: var(--text-color);
 }
 
 .sidebar .nav-link:hover {
@@ -162,7 +164,7 @@ body {
 }
 
 .sidebar header {
-    position: relative
+    position: relative;
 }
 
 .sidebar .image-text img {
@@ -202,6 +204,32 @@ header .image-text .header-text {
     transform: translateY(-50%) rotate(180deg);
 }
 
+/* Bottom Content */
+.bottom-content {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-content li {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    transition: var(--tran-04);
+}
+
+.bottom-content li:hover {
+    background: var(--primary-color);
+    border-radius: 6px;
+}
+
 /* Team Namen */
 .sidebar .name-liste {
     display: flex;
@@ -224,13 +252,7 @@ header .image-text .header-text {
     color: var(--text-color);
     height: auto;
     align-items: flex-start;
-
 }
-
-
-
-
-
 
 
 
@@ -410,7 +432,16 @@ input {
     background-color: var(--button-color) !important;
 }
 
-/* From Uiverse.io by Creatlydev */
+/*logout*/
+.picture.Logout {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    
+}
+
+
+/* Toggle Dark Light */
 
 .toggle {
     background-color: #fff;
@@ -423,7 +454,7 @@ input {
     box-shadow:  20px 20px 60px var(--primary-shadow-color),
                 -20px -20px 60px var(--primary-shadow-color-light);
     line-height: 1;
-    margin-left: 5px;
+    margin-left: 2px;
 }
 
 .input {

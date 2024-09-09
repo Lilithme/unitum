@@ -2,12 +2,29 @@ let selectedKW = 0;
 let selectedTag = 0;
 
 function selectKW(kw) {
+	if (kw == kwDaten[4].kw) {
+		const now = new Date();
+		if (now.getDay() > 1 || (now.getDay() == 1 && now.getHours() >= 14)) {
+			selectedKW = kw;
+			Array.from(KW_Liste.children).forEach((child) => {
+				child.classList.remove("active");
+			});
+			updateDatum();
+			loadPlan(selectedDate());
+			
+			return true
+		}
+		return false
+	}
+
 	selectedKW = kw;
 	Array.from(KW_Liste.children).forEach((child) => {
 		child.classList.remove("active");
 	});
 	updateDatum();
 	loadPlan(selectedDate());
+
+	return true
 }
 function selectTag(tag) {
 	if (selectedWeek()[tag] === undefined) return;
