@@ -119,15 +119,27 @@ function formatDatum(date) {
 
 const host = window.location.host;
 let ws = new WebSocket(`ws://${host}`);
-ws.onmessage = (event) => {
-    const {date, platz} = JSON.parse(event.data);
-    const platzNummer = platz.PlatzNr;
-    if (date !== formatDatum(selectedDate())) return;
-    selectedPlan[platzNummer] = platz;
-    platzEinsetzen(platzNummer, platz);
-    Namensbefüllung(AllTeams[selectedTeam - 1]);
-};
+connectWS();
 
-ws.onclose = () => {
-    ws = new WebSocket(`ws://${host}`);
+function connectWS() {
+    ws.onmessage = (event) => {
+        const {date, platz} = JSON.parse(event.data);
+        const platzNummer = platz.PlatzNr;
+        if (date !== formatDatum(selectedDate())) return;
+        selectedPlan[platzNummer] = platz;
+        platzEinsetzen(platzNummer, platz);
+        Namensbefüllung(AllTeams[selectedTeam - 1]);
+    };
+    ws.onclose = () => {
+        setTimeout(() => {
+            ws = new WebSocket(`ws://${host}`);
+            connectWS();
+        }, 200);
+    }
+    ws.onerror = () => {
+        setTimeout(() => {
+            ws = new WebSocket(`ws://${host}`);
+            connectWS();
+        }, 1000);
+    }
 }
