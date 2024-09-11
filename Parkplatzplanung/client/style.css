@@ -25,7 +25,7 @@ body {
     --button-color: #6eaae6;
     --gesperrt-color: #c9c3c3;
     --kw-color: rgb(206, 218, 219);
-    --team-color: rgb(244, 244, 244);
+    --team-color: rgb(255, 255, 255);
     --team1-color: #acdeab;
     --team2-color: #F9BEB0;
     --team3-color: #FCE7AE;
@@ -482,4 +482,10 @@ input {
 #switch:checked~.icon--sun {
     transition-delay: 200ms;
     transform: scale(1) rotate(360deg);
+}
+
+@media only screen and (max-width: 600px) {
+    input[type="time"] {
+        width: 60px;
+    }
 }
